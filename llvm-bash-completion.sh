@@ -80,6 +80,9 @@ _llvm()
     elif [[ $prev == -* || "," == @($cur_o|$prev_o) ]]; then
         [[ $prev == -* ]] && args=$prev || args=$preo
         words=$(<<< $help sed -En '/'"$args"'/{ :X n; s/^[ ]{,10}=([^ ]+).*/\1/p; tX}')
+        if [[ -z $words ]]; then
+            words=$(<<< $help sed -En 's/.* '"$prev"'=\[([^]]+)].*/\1/; tX; b; :X s/[,|]/\n/g; p; Q')
+        fi
     fi
 
     _llvm_footer
@@ -132,6 +135,8 @@ complete -o default -o bashdefault -F _llvm \
     llvm-modextract llvm-nm llvm-objcopy llvm-objdump llvm-opt-report \
     llvm-ranlib llvm-readelf llvm-readobj llvm-rtdyld llvm-size llvm-split \
     llvm-stress llvm-strings llvm-strip llvm-symbolizer llvm-tblgen \
-    llvm-undname llvm-xray clang-format clang-format-diff ld.lld clang-cpp clangd
+    llvm-undname llvm-xray ld.lld wasm-ld clang-format clang-format-diff \
+    clang-cpp clangd
+
 complete -o default -o bashdefault -F _llvm_cov llvm-cov llvm-lto2 llvm-pdbutil \
     llvm-profdata

@@ -14,7 +14,7 @@ these commands can be installed in Ubuntu 22.10 using
 `llvm-ranlib` `llvm-readelf` `llvm-readobj` `llvm-rtdyld` `llvm-size` `llvm-split`
 `llvm-stress` `llvm-strings` `llvm-strip` `llvm-symbolizer` `llvm-tblgen`
 `llvm-cov` `llvm-pdbutil` `llvm-profdata` `llvm-undname` `llvm-xray`
-`clang-format` `clang-format-diff` `ld.lld` `clang-cpp` `clangd`
+`ld.lld` `wasm-ld` `clang-format` `clang-format-diff` `clang-cpp` `clangd`
 
 Completion function for `clang` command can be downloaded separately
 from this url https://github.com/mug896/clang-bash-completion
