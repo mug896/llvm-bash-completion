@@ -79,7 +79,7 @@ _llvm()
 
     elif [[ $prev == -* || "," == @($cur_o|$prev_o) ]]; then
         [[ $prev == -* ]] && args=$prev || args=$preo
-        words=$(<<< $help sed -En '/'"$args"'/{ :X n; s/^[ ]{,10}=([^ ]+).*/\1/p; tX}')
+        words=$(<<< $help sed -En '/'"$args"'/{ :X n; s/^[ ]{,10}=([^ ]+).*/\1/p; tX; Q}')
         if [[ -z $words ]]; then
             words=$(<<< $help sed -En 's/.* '"$prev"'=\[([^]]+)].*/\1/; tX; b; :X s/[,|]/\n/g; p; Q')
         fi
