@@ -5,15 +5,16 @@ these commands can be installed in Ubuntu 22.10 using
 
 > apt install llvm clang lld clang-format clangd 
 
-    llc lli opt bugpoint dsymutil obj2yaml yaml2obj sanstats verify-uselistorder 
-    llvm-addr2line llvm-ar llvm-as llvm-bcanalyzer llvm-c-test llvm-cat 
-    llvm-cfi-verify llvm-config llvm-cxxfilt llvm-dis llvm-dlltool llvm-dwarfdump
-    llvm-exegesis llvm-extract llvm-link llvm-lto llvm-lto2 llvm-mc llvm-mca
-    llvm-modextract llvm-nm llvm-objcopy llvm-objdump llvm-opt-report
-    llvm-ranlib llvm-readelf llvm-readobj llvm-rtdyld llvm-size llvm-split
-    llvm-stress llvm-strings llvm-strip llvm-symbolizer llvm-tblgen
-    llvm-cov llvm-pdbutil llvm-profdata llvm-undname llvm-xray 
-    clang-format clang-format-diff ld.lld clang-cpp clangd
+`llc` `lli` `opt` `bugpoint` `dsymutil` `obj2yaml` `yaml2obj`
+`sanstats` `verify-uselistorder` `llvm-addr2line` `llvm-ar` `llvm-as`
+`llvm-bcanalyzer` `llvm-c-test` `llvm-cat` `llvm-cfi-verify` `llvm-config`
+`llvm-cxxfilt` `llvm-dis` `llvm-dlltool` `llvm-dwarfdump` `llvm-exegesis`
+`llvm-extract` `llvm-link` `llvm-lto` `llvm-lto2` `llvm-mc` `llvm-mca`
+`llvm-modextract` `llvm-nm` `llvm-objcopy` `llvm-objdump` `llvm-opt-report`
+`llvm-ranlib` `llvm-readelf` `llvm-readobj` `llvm-rtdyld` `llvm-size` `llvm-split`
+`llvm-stress` `llvm-strings` `llvm-strip` `llvm-symbolizer` `llvm-tblgen`
+`llvm-cov` `llvm-pdbutil` `llvm-profdata` `llvm-undname` `llvm-xray`
+`clang-format` `clang-format-diff` `ld.lld` `clang-cpp` `clangd`
 
 Completion function for `clang` command can be downloaded separately
 from this url https://github.com/mug896/clang-bash-completion
