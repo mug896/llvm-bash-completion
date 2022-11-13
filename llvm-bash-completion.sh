@@ -63,8 +63,6 @@ _llvm()
     _llvm_header
 
     help=$({ $cmd --help-list-hidden || $cmd --help-hidden || $cmd --help-list || $cmd --help ;} 2>&1 )
-#     help+=$'\n'$( man $cmd 2>/dev/null | sed -En '/^[ ]*OPTIONS:?$/,/^[ ]*[A-Z ]+$/{
-#         /^\s{,10}-/{ s/ (-[[:alnum:]-]+=?)|./\1\n/g; s/\n+|-\n/\n/g; p }}')
 
     if [[ $cur == -*[[*?]* ]]; then
         _llvm_search
