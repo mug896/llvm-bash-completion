@@ -39,11 +39,11 @@ _llvm_footer()
 _llvm_option_list()
 {
     if [[ $cmd == llvm-c-test ]]; then
-        $cmd |& sed -E 's/ (-[[:alnum:]-]+)|./\1/g;'
+        $cmd |& sed -E 's/ (--?[[:alnum:]][[:alnum:]_-]*)|./\1/g;'
     else
         <<< $help sed -En '/^[ ]{,10}--?[[:alnum:]]/{ s/, -/\a-/g;
-        tR; :R s/^[ ]{,10}(-[[:alnum:]_-]+\[?=?)[^\a]*/\1\n/; TZ;
-        s/(\a(-[[:alnum:]_-]+\[?=?)[^\a]*)/\2\n/g; s/[[\a]|\n[^\n]*$//g; p; :Z }'
+        tR; :R s/^[ ]{,10}(--?[[:alnum:]][[:alnum:]_-]*\[?=?)[^\a]*/\1\n/; TZ;
+        s/(\a(--?[[:alnum:]][[:alnum:]_-]*\[?=?)[^\a]*)/\2\n/g; s/[[\a]|\n[^\n]*$//g; p; :Z }'
     fi
 }
 _llvm_bind() { bind '"\011": complete' ;}
