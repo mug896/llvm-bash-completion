@@ -127,7 +127,7 @@ _llvm_subcommand()
     
     elif [[ $prev == -* || "," == @($cur_o|$prev_o) ]]; then
         [[ $prev == -* ]] && args=$prev || args=$preo
-        words=$(<<< $help sed -En '/'"$args"'/{ :X n; s/^[ ]{,10}=([^ ]+).*/\1/p; tX}')
+        words=$(<<< $help sed -En '/'"$args"'/{ :X n; s/^[ ]{,10}=([^ ]+).*/\1/p; tX; Q}')
     fi
 
     _llvm_footer
