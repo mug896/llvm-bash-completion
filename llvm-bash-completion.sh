@@ -40,18 +40,22 @@ _llvm_option_list()
 {
     if [[ $cmd == llvm-c-test ]]; then
         $cmd |& sed -E 's/ (--?[[:alnum:]][[:alnum:]_-]*)|./\1/g;'
+    elif [[ $cmd == c-index-test ]]; then
+        $cmd --help |& sed -En 's/c-index-test (-[^ =]+=?).*/\1/p'
     else
         <<< $help sed -En '/^[ ]{,10}--?[[:alnum:]]/{ s/, -/\a-/g;
-        tR; :R s/^[ ]{,10}(--?[[:alnum:]][[:alnum:]_-]*\[?=?)[^\a]*/\1\n/; TZ;
-        s/(\a(--?[[:alnum:]][[:alnum:]_-]*\[?=?)[^\a]*)/\2\n/g; s/[[\a]|\n[^\n]*$//g; p; :Z }'
+        tR; :R s/^[ ]{,10}(--?[[:alnum:]][[:alnum:]_+-]*\[?=?)[^\a]*/\1\n/; TZ;
+        s/(\a(--?[[:alnum:]][[:alnum:]_+-]*\[?=?)[^\a]*)/\2\n/g; s/[[\a]|\n[^\n]*$//g; p; :Z }'
     fi
 }
 _llvm_bind() { bind '"\011": complete' ;}
 _llvm_search()
 {
-    local -A aar; IFS=$'\n'; echo
+    local -A aar;
+    local IFS=$'\n'; echo
     words=$( _llvm_option_list )
-    for v in $words; do 
+    words=$( <<< $words sed -E 's/^[[:blank:]]+|[[:blank:]]+$//g' )
+    for v in $words; do
         let aar[$v]++
         if [[ $v == $cur && ${aar[$v]} -eq 1 ]]; then
             echo -e "\\e[36m$v\\e[0m"
@@ -112,6 +116,10 @@ _llvm_subcommand()
                 words=$(<<< $help sed -En 's/Available (sub)?commands: //; tX b; :X s/[ ,]+/\n/g; p') ;;
             llvm-jitlink-executor)
                 words=$'filedescs=\nlisten=' ;;
+            diagtool)
+                words=$(<<< $help sed -E '1d; s/^\s*([^ ]+).*/\1/') ;;
+            hmaptool)
+                words=$(<<< $help sed -En '/^Available commands:/,/\a/{ s/ -.*$//p }') ;;
         esac
         _llvm_footer
         return
@@ -143,10 +151,18 @@ complete -o default -o bashdefault -F _llvm \
     llvm-ranlib llvm-readelf llvm-readobj llvm-rtdyld llvm-size llvm-split \
     llvm-stress llvm-strings llvm-strip llvm-symbolizer llvm-tblgen \
     llvm-undname llvm-xray ld.lld wasm-ld clang-format clang-format-diff clangd \
-    clang-cpp clang-tidy clang-tidy-diff llvm-debuginfod llvm-debuginfod-find \
-    llvm-ifs llvm-install-name-tool llvm-jitlink llvm-libtool-darwin llvm-lipo \
-    llvm-otool llvm-tli-checker llvm-windres llvm-cxxmap llvm-dwarfutil llvm-gsymutil \
-    llvm-dwp llvm-reduce llvm-remark-size-diff llvm-profgen llvm-sim
+    clang-cpp clang-tidy clang-tidy-diff run-clang-tidy llvm-debuginfod \
+    llvm-debuginfod-find llvm-ifs llvm-install-name-tool llvm-jitlink \
+    llvm-libtool-darwin llvm-lipo llvm-otool llvm-tli-checker llvm-windres \
+    llvm-cxxmap llvm-dwarfutil llvm-gsymutil llvm-dwp llvm-reduce \
+    llvm-remark-size-diff llvm-profgen llvm-sim clang-apply-replacements \
+    clang-change-namespace clang-check clang-doc clang-extdef-mapping \
+    clang-include-fixer clang-linker-wrapper clang-move clang-nvlink-wrapper \
+    clang-offload-bundler clang-offload-packager clang-offload-wrapper clang-pseudo \
+    clang-query clang-refactor clang-rename clang-reorder-fields clang-repl \
+    clang-scan-deps  analyze-build c-index-test find-all-symbols hwasan_symbolize \
+    intercept-build modularize pp-trace sancov scan-build scan-build-py scan-view
 
 complete -o default -o bashdefault -F _llvm_subcommand \
-    llvm-cov llvm-lto2 llvm-pdbutil llvm-profdata llvm-jitlink-executor
+    llvm-cov llvm-lto2 llvm-pdbutil llvm-profdata llvm-jitlink-executor \
+    diagtool hmaptool

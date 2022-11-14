@@ -3,7 +3,7 @@
 This is a bash completion function for the following commands.
 these commands can be installed in Ubuntu 22.10 using
 
-> bash# apt install llvm clang lld clang-format clang-tidy clangd 
+> bash# apt install llvm clang clang-tools clang-format clang-tidy clangd lld
 
 `llc` `lli` `opt` `bugpoint` `dsymutil` `obj2yaml` `yaml2obj`
 `sanstats` `verify-uselistorder` `llvm-addr2line` `llvm-ar` `llvm-as`
@@ -14,7 +14,8 @@ these commands can be installed in Ubuntu 22.10 using
 `llvm-ranlib` `llvm-readelf` `llvm-readobj` `llvm-rtdyld` `llvm-size` `llvm-split`
 `llvm-stress` `llvm-strings` `llvm-strip` `llvm-symbolizer` `llvm-tblgen`
 `llvm-cov` `llvm-pdbutil` `llvm-profdata` `llvm-undname` `llvm-xray` `ld.lld`
-`wasm-ld` `clang-format` `clang-format-diff` `clangd` `clang-tidy` `clang-tidy-diff`
+`wasm-ld` `clang-format` `clang-format-diff` `clangd` `clang-tidy`
+`clang-tidy-diff` `run-clang-tidy`
 
 The following commands do not have symbolic links. so I made it like this:  
 
@@ -24,6 +25,13 @@ The following commands do not have symbolic links. so I made it like this:
 `llvm-install-name-tool` `llvm-jitlink` `llvm-jitlink-executor` `llvm-libtool-darwin`
 `llvm-lipo` `llvm-otool` `llvm-tli-checker` `llvm-windres` `llvm-cxxmap`
 `llvm-dwarfutil` `llvm-dwp` `llvm-reduce` `llvm-remark-size-diff` `llvm-profgen` `llvm-sim`
+`clang-apply-replacements` `clang-change-namespace` `clang-check clang-doc`
+`clang-extdef-mapping` `clang-include-fixer` `clang-linker-wrapper` `clang-move`
+`clang-nvlink-wrapper` `clang-offload-bundler` `clang-offload-packager`
+`clang-offload-wrapper` `clang-pseudo` `clang-query` `clang-refactor` `clang-rename`
+`clang-reorder-fields` `clang-repl` `clang-scan-deps` `analyze-build` `c-index-test`
+`find-all-symbols` `hwasan_symbolize` `intercept-build` `modularize` `pp-trace sancov`
+`scan-build` `scan-build-py` `scan-view` `diagtool` `hmaptool`
 
 Completion function for `clang` `clang++` commands can be downloaded separately
 from this url https://github.com/mug896/clang-bash-completion
