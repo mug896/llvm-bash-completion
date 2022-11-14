@@ -146,7 +146,7 @@ complete -o default -o bashdefault -F _llvm \
     clang-cpp llvm-gsymutil  llvm-debuginfod llvm-debuginfod-find llvm-ifs \
     llvm-install-name-tool llvm-jitlink llvm-libtool-darwin llvm-lipo \
     llvm-otool llvm-tli-checker llvm-windres llvm-cxxmap llvm-dwarfutil \
-    llvm-dwp llvm-reduce llvm-remark-size-diff
+    llvm-dwp llvm-reduce llvm-remark-size-diff llvm-profgen llvm-sim
 
 complete -o default -o bashdefault -F _llvm_subcommand \
     llvm-cov llvm-lto2 llvm-pdbutil llvm-profdata llvm-jitlink-executor
