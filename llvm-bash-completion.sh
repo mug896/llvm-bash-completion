@@ -41,7 +41,7 @@ _llvm_option_list()
     if [[ $cmd == llvm-c-test ]]; then
         $cmd |& sed -E 's/ (--?[[:alnum:]][[:alnum:]_-]*)|./\1/g;'
     elif [[ $cmd == c-index-test ]]; then
-        $cmd --help |& sed -En 's/c-index-test (-[^ =]+=?).*/\1/p'
+        $cmd --help |& sed -En '/c-index-test -/{ s/[^[:alnum:]](-[[:alnum:]-]+)|./\1\n/g; p }'
     else
         <<< $help sed -En '/^[ ]{,10}--?[[:alnum:]]/{ s/, -/\a-/g;
         tR; :R s/^[ ]{,10}(--?[[:alnum:]][[:alnum:]_+-]*\[?=?)[^\a]*/\1\n/; TZ;
