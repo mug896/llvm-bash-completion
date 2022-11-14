@@ -36,6 +36,8 @@ The following commands do not have symbolic links. so I made it like this:
 Completion function for `clang` `clang++` commands can be downloaded separately
 from this url https://github.com/mug896/clang-bash-completion
 
+> Commands written in scripts ( not binary executables ) can be a bit slow.
+
 
 ## Usage
 
