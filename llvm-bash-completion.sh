@@ -75,7 +75,7 @@ _llvm()
 
     elif [[ $cur == -* ]]; then
         if [[ $cmd == llvm-c-test ]]; then
-            words=$(llvm-c-test |& sed -E 's/ (-[[:alnum:]-]+)|./\1/g;')
+            words=$( $cmd |& sed -E 's/ (-[[:alnum:]-]+)|./\1/g;')
         else
             words=$( _llvm_option_list )
         fi
