@@ -40,7 +40,9 @@ _llvm_footer()
 _llvm_search()
 {
     local -A aar; IFS=$'\n'; echo
-    words=$(<<< $help sed -En 's/^[ ]{,10}(--?[[:alnum:]][^ =,]*)(=?).*/\1\2/; tX; b; :X s/(.*)\[=/\1\n\1=/; p')
+    words=$(<<< $help sed -En '/^[ ]{,10}-/{ s/, -/\a-/g;
+    tR; :R s/^[ ]{,10}(-[[:alnum:]-]+\[?=?)[^\a]*/\1\n/; TZ;
+    s/(\a(-[[:alnum:]-]+\[?=?)[^\a]*)/\2\n/g; s/[[\a]|\n[^\n]*$//g; p; :Z }')
     for v in $words; do 
         let aar[$v]++
         if [[ $v == $cur && ${aar[$v]} -eq 1 ]]; then
