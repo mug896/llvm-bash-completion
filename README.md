@@ -46,4 +46,4 @@ Copy contents of gcc-bash-completion.sh to ~/.bash_completion
 open new terminal and try auto completion !
 
 
-> please leave an issue above if you have any problems using this script.
+> please leave an issue above if you have problems using this script.
