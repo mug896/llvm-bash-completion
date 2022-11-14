@@ -62,7 +62,7 @@ _llvm()
     local cmd=$1 cmd2 words comp_line2 help args arr i v
     _llvm_header
 
-    help=$({ $cmd --help-list-hidden || $cmd --help-hidden || $cmd --help-list || $cmd --help ;} 2>&1 )
+    help=$({ $cmd --help-hidden || $cmd --help ;} 2>&1 )
 
     if [[ $cur == -*[[*?]* ]]; then
         _llvm_search
@@ -111,8 +111,7 @@ _llvm_cov()
         return
     fi
     cmd2=${COMP_WORDS[1]}
-    help=$({ $cmd $cmd2 --help-list-hidden || $cmd $cmd2 --help-hidden || 
-            $cmd $cmd2 --help-list || $cmd $cmd2 --help ;} 2>&1 )
+    help=$({ $cmd $cmd2 --help-hidden || $cmd $cmd2 --help ;} 2>&1 )
 
     if [[ $cur == -*[[*?]* ]]; then
         _llvm_search
