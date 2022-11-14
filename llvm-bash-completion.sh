@@ -93,7 +93,7 @@ _llvm()
 
     _llvm_footer
 }
-_llvm_cov() 
+_llvm_subcommand() 
 {
     local IFS=$' \t\n' cur cur_o prev prev_o prev2 preo
     local cmd=$1 cmd2 words comp_line2 help args arr i v
@@ -147,5 +147,5 @@ complete -o default -o bashdefault -F _llvm \
     llvm-install-name-tool llvm-jitlink llvm-libtool-darwin llvm-lipo \
     llvm-otool llvm-tli-checker llvm-windres llvm-cxxmap llvm-dwarfutil llvm-dwp
 
-complete -o default -o bashdefault -F _llvm_cov \
+complete -o default -o bashdefault -F _llvm_subcommand \
     llvm-cov llvm-lto2 llvm-pdbutil llvm-profdata llvm-jitlink-executor
