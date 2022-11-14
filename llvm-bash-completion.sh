@@ -154,7 +154,7 @@ complete -o default -o bashdefault -F _llvm \
     clang-cpp clang-tidy clang-tidy-diff run-clang-tidy llvm-debuginfod \
     llvm-debuginfod-find llvm-ifs llvm-install-name-tool llvm-jitlink \
     llvm-libtool-darwin llvm-lipo llvm-otool llvm-tli-checker llvm-windres \
-    llvm-cxxmap llvm-dwarfutil llvm-gsymutil llvm-dwp llvm-reduce \
+    llvm-cxxmap llvm-dwarfutil llvm-gsymutil llvm-dwp llvm-reduce llvm-diff \
     llvm-remark-size-diff llvm-profgen llvm-sim clang-apply-replacements \
     clang-change-namespace clang-check clang-doc clang-extdef-mapping \
     clang-include-fixer clang-linker-wrapper clang-move clang-nvlink-wrapper \
