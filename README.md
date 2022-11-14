@@ -25,7 +25,7 @@ The following commands do not have symbolic links. so I made it like this:
 `llvm-lipo` `llvm-otool` `llvm-tli-checker` `llvm-windres` `llvm-cxxmap`
 `llvm-dwarfutil` `llvm-dwp`
 
-Completion function for `clang` `clang++` command can be downloaded separately
+Completion function for `clang` `clang++` commands can be downloaded separately
 from this url https://github.com/mug896/clang-bash-completion
 
 
