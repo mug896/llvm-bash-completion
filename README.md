@@ -3,7 +3,7 @@
 This is a bash completion function for the following commands.
 these commands can be installed in Ubuntu 22.10 using
 
-> apt install llvm clang lld clang-format clangd 
+> bash# apt install llvm clang lld clang-format clangd 
 
 `llc` `lli` `opt` `bugpoint` `dsymutil` `obj2yaml` `yaml2obj`
 `sanstats` `verify-uselistorder` `llvm-addr2line` `llvm-ar` `llvm-as`
@@ -17,9 +17,8 @@ these commands can be installed in Ubuntu 22.10 using
 `ld.lld` `wasm-ld` `clang-format` `clang-format-diff` `clangd`
 
 The following commands do not have symbolic links. so I made it like this:  
-```sh
-ln -s /usr/bin/clang-cpp-15 /usr/bin/clang-cpp
-```
+
+> bash# ln -s /usr/bin/clang-cpp-15 /usr/bin/clang-cpp
 
 `clang-cpp` `llvm-gsymutil`  `llvm-debuginfod` `llvm-debuginfod-find` `llvm-ifs`
 `llvm-install-name-tool` `llvm-jitlink` `llvm-jitlink-executor` `llvm-libtool-darwin`
