@@ -147,5 +147,5 @@ complete -o default -o bashdefault -F _llvm \
     llvm-install-name-tool llvm-jitlink llvm-libtool-darwin llvm-lipo \
     llvm-otool llvm-tli-checker llvm-windres llvm-cxxmap llvm-dwarfutil llvm-dwp
 
-complete -o default -o bashdefault -F _llvm_cov llvm-cov llvm-lto2 llvm-pdbutil \
-    llvm-profdata llvm-jitlink-executor
+complete -o default -o bashdefault -F _llvm_cov \
+    llvm-cov llvm-lto2 llvm-pdbutil llvm-profdata llvm-jitlink-executor
