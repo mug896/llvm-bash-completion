@@ -94,16 +94,16 @@ _llvm_cov()
     _llvm_header
 
     if (( COMP_CWORD == 1 )); then
+        help=$( $cmd --help 2>&1 )
         case $cmd in
             llvm-cov)
-                words=$($cmd --help |& sed -En '/^Subcommands:/,/\a/{ //d; s/:.*$//; p }') ;;
+                words=$(<<< $help sed -En '/^Subcommands:/,/\a/{ //d; s/:.*$//; p }') ;;
             llvm-lto2)
-                words=$'dump-symtab\nrun' ;;
+                words=$(<<< $help sed -En 's/^Available (sub)?commands: //; s/[ ,]+/\n/; p') ;;
             llvm-pdbutil)
-                words=$'bytes\ndiadump\ndump\nexplain\nexport\nmerge\npdb2yaml
-                pretty\nyaml2pdb' ;;
+                words=$(<<< $help sed -En '/SUBCOMMANDS:/,/OPTIONS:/{ //d; s/^ *([^ ]+) *- .*$/\1/p }') ;;
             llvm-profdata)
-                words=$'merge\nshow\noverlap' ;;
+                words=$(<<< $help sed -En 's/Available (sub)?commands: //; tX b; :X s/[ ,]+/\n/g; p') ;;
         esac
         COMPREPLY=($(compgen -W "$words" -- "$cur"))
         return
