@@ -51,10 +51,10 @@ _llvm_option_list()
 _llvm_bind() { bind '"\011": complete' ;}
 _llvm_search()
 {
-    local -A aar;
-    local IFS=$'\n'; echo
     words=$( _llvm_option_list )
     words=$( <<< $words sed -E 's/^[[:blank:]]+|[[:blank:]]+$//g' )
+    local -A aar;
+    local IFS=$'\n'; echo
     for v in $words; do
         let aar[$v]++
         if [[ $v == $cur && ${aar[$v]} -eq 1 ]]; then
