@@ -71,7 +71,9 @@ _llvm()
         if [[ $cmd == llvm-c-test ]]; then
             words=$(llvm-c-test |& sed -E 's/ (-[[:alnum:]-]+)|./\1/g;')
         else
-            words=$(<<< $help sed -En 's/^[ ]{,10}(--?[[:alnum:]][^ =,]*)(=?).*/\1\2/; tX; b; :X s/(.*)\[=/\1\n\1=/; p')
+            words=$(<<< $help sed -En '/^[ ]{,10}-/{ s/, -/\a-/g;
+            s/^[ ]{,10}(-[[:alnum:]-]+\[?=?)[^\a]*/\1\n/; TZ;
+            s/(\a(-[[:alnum:]-]+\[?=?)[^\a]*)/\2\n/g; s/[[\a]|\n[^\n]*$//g; p; :Z }')
         fi
     
     elif [[ $cmd == opt && $prev == --passes ]]; then
