@@ -16,7 +16,7 @@ these commands can be installed in Ubuntu 22.10 using
 `llvm-cov` `llvm-pdbutil` `llvm-profdata` `llvm-undname` `llvm-xray`
 `ld.lld` `wasm-ld` `clang-format` `clang-format-diff` `clang-cpp` `clangd`
 
-Completion function for `clang` command can be downloaded separately
+Completion function for `clang` `clang++` command can be downloaded separately
 from this url https://github.com/mug896/clang-bash-completion
 
 
