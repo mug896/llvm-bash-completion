@@ -22,8 +22,9 @@ ln -s /usr/bin/clang-cpp-15 /usr/bin/clang-cpp
 ```
 
 `clang-cpp` `llvm-gsymutil`  `llvm-debuginfod` `llvm-debuginfod-find` `llvm-ifs`
-`llvm-install-name-tool` `llvm-jitlink` `llvm-libtool-darwin` `llvm-lipo`
-`llvm-otool` `llvm-tli-checker` `llvm-windres` `llvm-cxxmap` `llvm-dwarfutil` `llvm-dwp`
+`llvm-install-name-tool` `llvm-jitlink` `llvm-jitlink-executor` `llvm-libtool-darwin`
+`llvm-lipo` `llvm-otool` `llvm-tli-checker` `llvm-windres` `llvm-cxxmap`
+`llvm-dwarfutil` `llvm-dwp`
 
 Completion function for `clang` `clang++` command can be downloaded separately
 from this url https://github.com/mug896/clang-bash-completion

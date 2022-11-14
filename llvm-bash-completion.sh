@@ -38,9 +38,13 @@ _llvm_footer()
 }
 _llvm_option_list()
 {
-    <<< $help sed -En '/^[ ]{,10}-/{ s/, -/\a-/g;
-    tR; :R s/^[ ]{,10}(-[[:alnum:]-]+\[?=?)[^\a]*/\1\n/; TZ;
-    s/(\a(-[[:alnum:]-]+\[?=?)[^\a]*)/\2\n/g; s/[[\a]|\n[^\n]*$//g; p; :Z }'
+    if [[ $cmd == llvm-c-test ]]; then
+        $cmd |& sed -E 's/ (-[[:alnum:]-]+)|./\1/g;'
+    else
+        <<< $help sed -En '/^[ ]{,10}-/{ s/, -/\a-/g;
+        tR; :R s/^[ ]{,10}(-[[:alnum:]_-]+\[?=?)[^\a]*/\1\n/; TZ;
+        s/(\a(-[[:alnum:]_-]+\[?=?)[^\a]*)/\2\n/g; s/[[\a]|\n[^\n]*$//g; p; :Z }'
+    fi
 }
 _llvm_bind() { bind '"\011": complete' ;}
 _llvm_search()
@@ -74,11 +78,7 @@ _llvm()
         _llvm_search
 
     elif [[ $cur == -* ]]; then
-        if [[ $cmd == llvm-c-test ]]; then
-            words=$( $cmd |& sed -E 's/ (-[[:alnum:]-]+)|./\1/g;')
-        else
-            words=$( _llvm_option_list )
-        fi
+        words=$( _llvm_option_list )
     
     elif [[ $cmd == opt && $prev == --passes ]]; then
         words=$(opt --print-passes | sed -E '/^[^ ].+:$/d')
@@ -87,7 +87,7 @@ _llvm()
         [[ $prev == -* ]] && args=$prev || args=$preo
         words=$(<<< $help sed -En '/'"$args"'/{ :X n; s/^[ ]{,10}=([^ ]+).*/\1/p; tX; Q}')
         if [[ -z $words ]]; then
-            words=$(<<< $help sed -En 's/.* '"$prev"'=\[([^]]+)].*/\1/; tX; b; :X s/[,|]/\n/g; p; Q')
+            words=$(<<< $help sed -En 's/.* '"$prev"'[ =]\[([^]]+)].*/\1/; tX; b; :X s/[,|]/\n/g; p; Q')
         fi
     fi
 
@@ -110,8 +110,10 @@ _llvm_cov()
                 words=$(<<< $help sed -En '/SUBCOMMANDS:/,/OPTIONS:/{ //d; s/^ *([^ ]+) *- .*$/\1/p }') ;;
             llvm-profdata)
                 words=$(<<< $help sed -En 's/Available (sub)?commands: //; tX b; :X s/[ ,]+/\n/g; p') ;;
+            llvm-jitlink-executor)
+                words=$'filedescs=\nlisten=' ;;
         esac
-        COMPREPLY=($(compgen -W "$words" -- "$cur"))
+        _llvm_footer
         return
     fi
     cmd2=${COMP_WORDS[1]}
@@ -140,8 +142,10 @@ complete -o default -o bashdefault -F _llvm \
     llvm-modextract llvm-nm llvm-objcopy llvm-objdump llvm-opt-report \
     llvm-ranlib llvm-readelf llvm-readobj llvm-rtdyld llvm-size llvm-split \
     llvm-stress llvm-strings llvm-strip llvm-symbolizer llvm-tblgen \
-    llvm-undname llvm-xray ld.lld wasm-ld clang-format clang-format-diff \
-    clang-cpp clangd
+    llvm-undname llvm-xray ld.lld wasm-ld clang-format clang-format-diff clangd \
+    clang-cpp llvm-gsymutil  llvm-debuginfod llvm-debuginfod-find llvm-ifs \
+    llvm-install-name-tool llvm-jitlink llvm-libtool-darwin llvm-lipo \
+    llvm-otool llvm-tli-checker llvm-windres llvm-cxxmap llvm-dwarfutil llvm-dwp
 
 complete -o default -o bashdefault -F _llvm_cov llvm-cov llvm-lto2 llvm-pdbutil \
-    llvm-profdata
+    llvm-profdata llvm-jitlink-executor
