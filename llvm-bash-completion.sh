@@ -9,7 +9,6 @@ _init_comp_wordbreaks()
         "$'PROMPT_COMMAND=${PROMPT_COMMAND#*$\'\\n\'}\n'$PROMPT_COMMAND
     fi
 }
-_llvm_bind() { bind '"\011": complete' ;}
 _llvm_header() 
 {
     cur=${COMP_WORDS[COMP_CWORD]} cur_o=$cur
@@ -43,6 +42,7 @@ _llvm_option_list()
     tR; :R s/^[ ]{,10}(-[[:alnum:]-]+\[?=?)[^\a]*/\1\n/; TZ;
     s/(\a(-[[:alnum:]-]+\[?=?)[^\a]*)/\2\n/g; s/[[\a]|\n[^\n]*$//g; p; :Z }'
 }
+_llvm_bind() { bind '"\011": complete' ;}
 _llvm_search()
 {
     local -A aar; IFS=$'\n'; echo
