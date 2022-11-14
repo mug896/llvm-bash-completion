@@ -53,8 +53,7 @@ _llvm_search()
 {
     words=$( _llvm_option_list )
     words=$( <<< $words sed -E 's/^[[:blank:]]+|[[:blank:]]+$//g' )
-    local -A aar;
-    local IFS=$'\n'; echo
+    local -A aar; IFS=$'\n'; echo
     for v in $words; do
         let aar[$v]++
         if [[ $v == $cur && ${aar[$v]} -eq 1 ]]; then
