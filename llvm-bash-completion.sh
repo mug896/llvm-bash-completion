@@ -72,7 +72,7 @@ _llvm()
             words=$(llvm-c-test |& sed -E 's/ (-[[:alnum:]-]+)|./\1/g;')
         else
             words=$(<<< $help sed -En '/^[ ]{,10}-/{ s/, -/\a-/g;
-            s/^[ ]{,10}(-[[:alnum:]-]+\[?=?)[^\a]*/\1\n/; TZ;
+            tR; :R s/^[ ]{,10}(-[[:alnum:]-]+\[?=?)[^\a]*/\1\n/; TZ;
             s/(\a(-[[:alnum:]-]+\[?=?)[^\a]*)/\2\n/g; s/[[\a]|\n[^\n]*$//g; p; :Z }')
         fi
     
