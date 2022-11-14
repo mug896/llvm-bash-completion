@@ -143,9 +143,9 @@ complete -o default -o bashdefault -F _llvm \
     llvm-ranlib llvm-readelf llvm-readobj llvm-rtdyld llvm-size llvm-split \
     llvm-stress llvm-strings llvm-strip llvm-symbolizer llvm-tblgen \
     llvm-undname llvm-xray ld.lld wasm-ld clang-format clang-format-diff clangd \
-    clang-cpp llvm-gsymutil  llvm-debuginfod llvm-debuginfod-find llvm-ifs \
-    llvm-install-name-tool llvm-jitlink llvm-libtool-darwin llvm-lipo \
-    llvm-otool llvm-tli-checker llvm-windres llvm-cxxmap llvm-dwarfutil \
+    clang-cpp clang-tidy clang-tidy-diff llvm-debuginfod llvm-debuginfod-find \
+    llvm-ifs llvm-install-name-tool llvm-jitlink llvm-libtool-darwin llvm-lipo \
+    llvm-otool llvm-tli-checker llvm-windres llvm-cxxmap llvm-dwarfutil llvm-gsymutil \
     llvm-dwp llvm-reduce llvm-remark-size-diff llvm-profgen llvm-sim
 
 complete -o default -o bashdefault -F _llvm_subcommand \

@@ -3,7 +3,7 @@
 This is a bash completion function for the following commands.
 these commands can be installed in Ubuntu 22.10 using
 
-> bash# apt install llvm clang lld clang-format clangd 
+> bash# apt install llvm clang lld clang-format clang-tidy clangd 
 
 `llc` `lli` `opt` `bugpoint` `dsymutil` `obj2yaml` `yaml2obj`
 `sanstats` `verify-uselistorder` `llvm-addr2line` `llvm-ar` `llvm-as`
@@ -13,8 +13,8 @@ these commands can be installed in Ubuntu 22.10 using
 `llvm-modextract` `llvm-nm` `llvm-objcopy` `llvm-objdump` `llvm-opt-report`
 `llvm-ranlib` `llvm-readelf` `llvm-readobj` `llvm-rtdyld` `llvm-size` `llvm-split`
 `llvm-stress` `llvm-strings` `llvm-strip` `llvm-symbolizer` `llvm-tblgen`
-`llvm-cov` `llvm-pdbutil` `llvm-profdata` `llvm-undname` `llvm-xray`
-`ld.lld` `wasm-ld` `clang-format` `clang-format-diff` `clangd`
+`llvm-cov` `llvm-pdbutil` `llvm-profdata` `llvm-undname` `llvm-xray` `ld.lld`
+`wasm-ld` `clang-format` `clang-format-diff` `clangd` `clang-tidy` `clang-tidy-diff`
 
 The following commands do not have symbolic links. so I made it like this:  
 
