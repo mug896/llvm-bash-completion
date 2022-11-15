@@ -141,7 +141,7 @@ _llvm_subcommand()
 }
 
 complete -o default -o bashdefault -F _llvm \
-    llc lli opt bugpoint dsymutil \
+    llc lli opt lldb bugpoint dsymutil \
     obj2yaml yaml2obj sanstats verify-uselistorder \
     llvm-addr2line llvm-ar llvm-as llvm-bcanalyzer llvm-c-test llvm-cat llvm-cfi-verify \
     llvm-config llvm-cxxfilt llvm-dis llvm-dlltool llvm-dwarfdump \

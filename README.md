@@ -3,9 +3,9 @@
 This is a bash completion function for the following commands.
 these commands can be installed in Ubuntu 22.10 using
 
-> bash# apt install llvm clang clang-tools clang-format clang-tidy clangd lld
+> bash# apt install llvm clang clang-tools clang-format clang-tidy clangd lld lldb
 
-`llc` `lli` `opt` `bugpoint` `dsymutil` `obj2yaml` `yaml2obj`
+`llc` `lli` `opt` `lldb` `bugpoint` `dsymutil` `obj2yaml` `yaml2obj`
 `sanstats` `verify-uselistorder` `llvm-addr2line` `llvm-ar` `llvm-as`
 `llvm-bcanalyzer` `llvm-c-test` `llvm-cat` `llvm-cfi-verify` `llvm-config`
 `llvm-cxxfilt` `llvm-dis` `llvm-dlltool` `llvm-dwarfdump` `llvm-exegesis`
