@@ -75,7 +75,7 @@ _llvm()
     local cmd=$1 cmd2 words comp_line2 help args arr i v
     _llvm_header
 
-    help=$({ $cmd --help-hidden || $cmd --help ;} 2>&1 )
+    help=$({ $cmd --help-hidden || $cmd --help || $cmd -help ;} 2>&1 )
 
     if [[ $cur == -*[[*?]* ]]; then
         _llvm_search
@@ -155,7 +155,7 @@ complete -o default -o bashdefault -F _llvm \
     llvm-libtool-darwin llvm-lipo llvm-otool llvm-tli-checker llvm-windres \
     llvm-cxxmap llvm-dwarfutil llvm-gsymutil llvm-dwp llvm-reduce llvm-diff \
     llvm-remark-size-diff llvm-profgen llvm-sim clang-apply-replacements \
-    clang-change-namespace clang-check clang-doc clang-extdef-mapping \
+    clang-change-namespace clang-check clang-doc clang-cl clang-extdef-mapping \
     clang-include-fixer clang-linker-wrapper clang-move clang-nvlink-wrapper \
     clang-offload-bundler clang-offload-packager clang-offload-wrapper clang-pseudo \
     clang-query clang-refactor clang-rename clang-reorder-fields clang-repl \

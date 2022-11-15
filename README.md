@@ -27,7 +27,7 @@ The following commands do not have symbolic links. so I made it like this:
 `llvm-dwarfutil` `llvm-dwp` `llvm-reduce` `llvm-remark-size-diff` `llvm-profgen` `llvm-sim`
 `clang-apply-replacements` `clang-change-namespace` `clang-check clang-doc`
 `clang-extdef-mapping` `clang-include-fixer` `clang-linker-wrapper` `clang-move`
-`clang-nvlink-wrapper` `clang-offload-bundler` `clang-offload-packager`
+`clang-nvlink-wrapper` `clang-offload-bundler` `clang-offload-packager` `clang-cl`
 `clang-offload-wrapper` `clang-pseudo` `clang-query` `clang-refactor` `clang-rename`
 `clang-reorder-fields` `clang-repl` `clang-scan-deps` `analyze-build` `c-index-test`
 `find-all-symbols` `hwasan_symbolize` `intercept-build` `modularize` `pp-trace sancov`
