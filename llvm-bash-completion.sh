@@ -30,7 +30,7 @@ _llvm_header()
 }
 _llvm_footer()
 {
-    if [[ -z $COMPREPLY ]]; then
+    if ! [[ -v COMPREPLY ]]; then
         words=$( <<< $words sed -E 's/^[[:blank:]]+|[[:blank:]]+$//g' )
         IFS=$'\n' COMPREPLY=($(compgen -W "$words" -- "$cur"))
     fi
