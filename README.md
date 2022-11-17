@@ -41,8 +41,8 @@ from this url https://github.com/mug896/clang-bash-completion
 
 ## Usage
 
-You can search for completion words using `*`, `?`, `[...]` glob characters
-while writing command line like this
+You can try to search for completion words using the glob characters 
+'*', '?', '[...]' while writing the command line like this
 
 ```sh
 bash$ opt -*print*[tab]
