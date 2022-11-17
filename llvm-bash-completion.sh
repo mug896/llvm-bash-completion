@@ -39,7 +39,7 @@ _llvm_footer()
 _llvm_option_list()
 {
     if [[ $cmd == llvm-c-test ]]; then
-        $cmd |& sed -E 's/ (--?[[:alnum:]][[:alnum:]_-]*)|./\1/g;'
+        $cmd --help |& sed -E 's/ (--?[[:alnum:]][[:alnum:]_-]*)|./\1\n/g;'
     elif [[ $cmd == c-index-test ]]; then
         $cmd --help |& sed -En '/c-index-test -/{ s/[^[:alnum:]](-[[:alnum:]-]+=?)|./\1\n/g; p }'
     else
