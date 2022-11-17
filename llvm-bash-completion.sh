@@ -64,7 +64,7 @@ _llvm_search()
     done
     (( count >= LINES )) && opt="+Gg"
     echo -ne "$res" | less -FRSXiN $opt
-    COMPREPLY=( "${cur_o%%[[*?]*}" )
+    COMPREPLY=( "$cur_o" )
     bind -x '"\011": _llvm_bind'
 }
 _llvm() 
