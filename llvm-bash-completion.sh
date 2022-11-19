@@ -31,7 +31,7 @@ _llvm_header()
 _llvm_footer()
 {
     if ! declare -p COMPREPLY &> /dev/null; then
-        words=$( <<< $words sed -E 's/^[[:blank:]]+|[[:blank:]]+$//g' )
+        words=$( <<< $words sed -E 's/^[ \t]+|[ \t]+$//g' )
         IFS=$'\n' COMPREPLY=($(compgen -W "$words" -- "$cur"))
     fi
     [[ ${COMPREPLY: -1} == "=" ]] && compopt -o nospace
@@ -51,7 +51,7 @@ _llvm_option_list()
 _llvm_bind() { bind '"\011": complete' ;}
 _llvm_search()
 {
-    words=$( _llvm_option_list | sed -E 's/^[[:blank:]]+|[[:blank:]]+$//g' | sort -u )
+    words=$( _llvm_option_list | sed -E 's/^[ \t]+|[ \t]+$//g' | sort -u )
     local res count opt
     IFS=$'\n'; echo
     for v in $words; do
