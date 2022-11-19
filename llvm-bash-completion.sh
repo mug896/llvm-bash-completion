@@ -51,8 +51,7 @@ _llvm_option_list()
 _llvm_bind() { bind '"\011": complete' ;}
 _llvm_search()
 {
-    words=$( _llvm_option_list )
-    words=$( <<< $words sed -E 's/^[[:blank:]]+|[[:blank:]]+$//g' | sort -u )
+    words=$( _llvm_option_list | sed -E 's/^[[:blank:]]+|[[:blank:]]+$//g' | sort -u )
     local res count opt
     IFS=$'\n'; echo
     for v in $words; do
