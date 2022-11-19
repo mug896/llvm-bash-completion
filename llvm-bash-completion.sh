@@ -53,7 +53,7 @@ _llvm_search()
 {
     words=$( _llvm_option_list | sed -E 's/^[ \t]+|[ \t]+$//g' | sort -u )
     local res count opt
-    IFS=$'\n'; echo
+    local IFS=$'\n'; echo
     for v in $words; do
         if [[ $v == $cur ]]; then
             res+=$'\e[36m'"$v"$'\e[0m\n'
