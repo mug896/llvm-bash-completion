@@ -62,7 +62,6 @@ _llvm_search()
     done
     (( count >= LINES )) && opt="+Gg"
     less -FRSXiN $opt <<< ${res%$'\n'}
-    COMPREPLY=( "${comp_line2##*[ ,=]}" )
     bind -x '"\011": _llvm_bind'
 }
 _llvm() 
