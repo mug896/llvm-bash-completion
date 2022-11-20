@@ -44,8 +44,8 @@ _llvm_option_list()
         $cmd --help |& sed -En '/c-index-test -/{ s/[^[:alnum:]](-[[:alnum:]-]+=?)|./\1\n/g; p }'
     else
         <<< $help sed -En '/^[ ]{,10}--?[[:alnum:]]/{ s/, -/\a-/g;
-        tR; :R s/^[ ]{,10}(--?[[:alnum:]][[:alnum:]_+-]*\[?=?)[^\a]*/\1\n/; TZ;
-        s/(\a(--?[[:alnum:]][[:alnum:]_+-]*\[?=?)[^\a]*)/\2\n/g; s/[[\a]|\n[^\n]*$//g; p; :Z }'
+        tR; :R s/^[ ]{,10}(--?[[:alnum:]][[:alnum:]_+-]*\[?=?)[^\a]*/\1\n/; T;
+        s/(\a(--?[[:alnum:]][[:alnum:]_+-]*\[?=?)[^\a]*)/\2\n/g; s/[[\a]|\n[^\n]*$//g; p }'
     fi
 }
 _llvm_bind() { bind '"\011": complete' ;}
@@ -92,7 +92,7 @@ _llvm()
         words=$(<<< $help sed -En '/^[ ]*'"$args"'[ =]/{ 
             :X n; /^[ ]{10}|^[ ]*'"$args"'[ =]/bX; s/^[ ]{,10}=([^ ]+).*/\1/p; tX; Q }')
         if [[ -z $words ]]; then
-            words=$(<<< $help sed -En 's/.* '"$prev"'[ =]\[([^]]+)].*/\1/; tX; b; :X s/[,|]/\n/g; p; Q')
+            words=$(<<< $help sed -En 's/.* '"$prev"'[ =]\[([^]]+)].*/\1/; T; s/[,|]/\n/g; p; Q')
         fi
     fi
 
