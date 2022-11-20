@@ -146,8 +146,8 @@ _llvm_subcommand()
 complete -o default -o bashdefault -F _llvm \
     llc lli opt lldb lldb-instr bugpoint dsymutil \
     obj2yaml yaml2obj sanstats verify-uselistorder FileCheck \
-    llvm-addr2line llvm-ar llvm-as llvm-bcanalyzer llvm-c-test llvm-cat llvm-cfi-verify \
-    llvm-config llvm-cxxfilt llvm-dis llvm-dlltool llvm-dwarfdump \
+    llvm-addr2line llvm-ar llvm-as llvm-bcanalyzer llvm-c-test llvm-cat \
+    llvm-config llvm-cxxfilt llvm-dis llvm-dlltool llvm-dwarfdump llvm-cfi-verify \
     llvm-exegesis llvm-extract llvm-link llvm-lto llvm-mc llvm-mca \
     llvm-modextract llvm-nm llvm-objcopy llvm-objdump llvm-opt-report \
     llvm-ranlib llvm-readelf llvm-readobj llvm-rtdyld llvm-size llvm-split \
