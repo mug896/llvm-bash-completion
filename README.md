@@ -21,7 +21,7 @@ The following commands do not have symbolic links. so I made it like this:
 
 > bash# ln -s /usr/bin/clang-cpp-15 /usr/bin/clang-cpp
 
-Or you can just add `/usr/lib/llvm-15/bin/` directory in `$PATH` variable.
+Or you can just add `/usr/lib/llvm-15/bin/` directory in the `$PATH` variable.
 
 `clang-cpp` `llvm-gsymutil`  `llvm-debuginfod` `llvm-debuginfod-find` `llvm-ifs`
 `llvm-install-name-tool` `llvm-jitlink` `llvm-jitlink-executor` `llvm-libtool-darwin`
