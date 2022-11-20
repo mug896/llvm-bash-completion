@@ -12,13 +12,13 @@ _init_comp_wordbreaks()
 _llvm_header() 
 {
     cur=${COMP_WORDS[COMP_CWORD]} cur_o=$cur
-    [[ ${COMP_LINE:COMP_POINT-1:1} = " " || $COMP_WORDBREAKS == *$cur* ]] && cur=""
+    comp_line2=${COMP_LINE:0:$COMP_POINT}
+    [[ ${COMP_LINE2: -1} = " " || $COMP_WORDBREAKS == *$cur* ]] && cur=""
     prev=${COMP_WORDS[COMP_CWORD-1]} prev_o=$prev
     [[ $prev == [,=] ]] && prev=${COMP_WORDS[COMP_CWORD-2]}
     if (( COMP_CWORD > 4 )); then
         [[ $cur_o == [,=] ]] && prev2=${COMP_WORDS[COMP_CWORD-3]} || prev2=${COMP_WORDS[COMP_CWORD-4]}
     fi
-    comp_line2=${COMP_LINE:0:$COMP_POINT}
     eval arr=( $comp_line2 ) 2> /dev/null
     for (( i = ${#arr[@]} - 1; i > 0; i-- )); do
         if [[ ${arr[i]} == -* ]]; then
