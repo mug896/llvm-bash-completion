@@ -89,7 +89,7 @@ _llvm()
 
     elif [[ $prev == -* || "," == @($cur_o|$prev_o) ]]; then
         [[ $prev == -* ]] && args=$prev || args=$preo
-        words=$(<<< $help sed -En '/'"$args"'/{ :X n; s/^[ ]{,10}=([^ ]+).*/\1/p; tX; Q}')
+        words=$(<<< $help sed -En '/'"$args"'/{ :X n; /^[ ]{10}/bX; s/^[ ]{,10}=([^ ]+).*/\1/p; tX; Q}')
         if [[ -z $words ]]; then
             words=$(<<< $help sed -En 's/.* '"$prev"'[ =]\[([^]]+)].*/\1/; tX; b; :X s/[,|]/\n/g; p; Q')
         fi
@@ -135,15 +135,15 @@ _llvm_subcommand()
     
     elif [[ $prev == -* || "," == @($cur_o|$prev_o) ]]; then
         [[ $prev == -* ]] && args=$prev || args=$preo
-        words=$(<<< $help sed -En '/'"$args"'/{ :X n; s/^[ ]{,10}=([^ ]+).*/\1/p; tX; Q}')
+        words=$(<<< $help sed -En '/'"$args"'/{ :X n; /^[ ]{10}/bX; s/^[ ]{,10}=([^ ]+).*/\1/p; tX; Q}')
     fi
 
     _llvm_footer
 }
 
 complete -o default -o bashdefault -F _llvm \
-    llc lli opt lldb bugpoint dsymutil \
-    obj2yaml yaml2obj sanstats verify-uselistorder \
+    llc lli opt lldb lldb-instr bugpoint dsymutil \
+    obj2yaml yaml2obj sanstats verify-uselistorder FileCheck \
     llvm-addr2line llvm-ar llvm-as llvm-bcanalyzer llvm-c-test llvm-cat llvm-cfi-verify \
     llvm-config llvm-cxxfilt llvm-dis llvm-dlltool llvm-dwarfdump \
     llvm-exegesis llvm-extract llvm-link llvm-lto llvm-mc llvm-mca \
@@ -155,7 +155,7 @@ complete -o default -o bashdefault -F _llvm \
     llvm-debuginfod-find llvm-ifs llvm-install-name-tool llvm-jitlink \
     llvm-libtool-darwin llvm-lipo llvm-otool llvm-tli-checker llvm-windres \
     llvm-cxxmap llvm-dwarfutil llvm-gsymutil llvm-dwp llvm-reduce llvm-diff \
-    llvm-remark-size-diff llvm-profgen llvm-sim clang-apply-replacements \
+    llvm-remark-size-diff llvm-profgen llvm-sim clang-apply-replacements split-file \
     clang-change-namespace clang-check clang-doc clang-cl clang-extdef-mapping \
     clang-include-fixer clang-linker-wrapper clang-move clang-nvlink-wrapper \
     clang-offload-bundler clang-offload-packager clang-offload-wrapper clang-pseudo \
