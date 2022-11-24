@@ -80,6 +80,7 @@ _llvm()
 
     if [[ $cur == -*[[*?]* ]]; then
         _llvm_search
+        return
 
     elif [[ $cur == -* ]]; then
         words=$( _llvm_option_list )
@@ -130,6 +131,7 @@ _llvm_subcommand()
 
     if [[ $cur == -*[[*?]* ]]; then
         _llvm_search
+        return
 
     elif [[ $cur == -* ]]; then
         words=$( _llvm_option_list )
