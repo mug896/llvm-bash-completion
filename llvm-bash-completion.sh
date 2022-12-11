@@ -53,11 +53,13 @@ _llvm_search()
 {
     words=$( _llvm_option_list | sed -E 's/^[ \t]+|[ \t]+$//g' | sort -u )
     local res count opt
+    _llvm_number=""
     local IFS=$'\n'; echo
     for v in $words; do
         if [[ $v == $cur ]]; then
             res+=$'\e[36m'"$v"$'\e[0m\n'
             let count++
+            _llvm_number+="$count $v"$'\n'
         fi
     done
     (( count >= LINES )) && opt="+Gg"
@@ -78,7 +80,11 @@ _llvm()
 
     help=$({ $cmd --help-hidden || $cmd --help || $cmd -help ;} 2>&1 )
 
-    if [[ $cur == -*[[*?]* ]]; then
+    if [[ $cur == +([0-9]) ]]; then
+        words=$( <<< $_llvm_number awk '$1 == '"$cur"' { print $2; exit }' )
+        COMPREPLY=( "$words" )
+
+    elif [[ $cur == -*[[*?]* ]]; then
         _llvm_search
         return
 
@@ -129,7 +135,11 @@ _llvm_subcommand()
     cmd2=${COMP_WORDS[1]}
     help=$({ $cmd $cmd2 --help-hidden || $cmd $cmd2 --help ;} 2>&1 )
 
-    if [[ $cur == -*[[*?]* ]]; then
+    if [[ $cur == +([0-9]) ]]; then
+        words=$( <<< $_llvm_number awk '$1 == '"$cur"' { print $2; exit }' )
+        COMPREPLY=( "$words" )
+
+    elif [[ $cur == -*[[*?]* ]]; then
         _llvm_search
         return
 

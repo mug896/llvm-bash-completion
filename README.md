@@ -47,17 +47,22 @@ You can try to search for completion words using the glob characters
 `*`, `?`, `[...]` while writing the command line like this:
 
 ```sh
-bash$ opt -*print*[tab]
+bash$ opt -O1 foo.bc -*debug*[tab]
 . . .
---print-after=
---print-after-all
---print-after-isel
---print-all-options
---print-before=
---print-before-all
---print-before-changed
+10 --debug-entry-values
+11 --debug-info-correlate
+12 --debug-pass-manager
+13 --debug-pass-manager=
+14 --debug-pass=
+15 --debugger-tune=
 . . .                       # "q"
 [tab]                       # [tab] to exit to the prompt.
+
+# After searching, you can use the numbers in the list to input completion words.
+
+$ opt -O1 foo.bc 14[tab]
+
+$ opt -O1 foo.bc --debug-pass=
 ```
 
 
