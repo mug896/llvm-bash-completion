@@ -35,10 +35,13 @@ Or you can just add `/usr/lib/llvm-15/bin/` directory to the `$PATH` variable.
 `find-all-symbols` `hwasan_symbolize` `intercept-build` `modularize` `pp-trace sancov`
 `scan-build` `scan-build-py` `scan-view` `diagtool` `hmaptool`
 
+
+> Commands written in scripts ( not binary executables ) can be a bit slow.
+
+
 Completion function for `clang` `clang++` commands can be downloaded separately
 from this url https://github.com/mug896/clang-bash-completion
 
-> Commands written in scripts ( not binary executables ) can be a bit slow.
 
 
 ## Usage
