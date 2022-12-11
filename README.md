@@ -59,7 +59,6 @@ bash$ opt -O1 foo.bc -*debug*[tab]
 [tab]                       # [tab] to exit to the prompt.
 
 # After searching, you can use the numbers in the list to input completion words.
-
 $ opt -O1 foo.bc 14[tab]
 
 $ opt -O1 foo.bc --debug-pass=
