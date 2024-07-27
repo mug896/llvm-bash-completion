@@ -1,6 +1,6 @@
 # LLVM Bash Completion
 
-This is a bash completion function for the following commands.
+This is a bash completion function for llvm commands.
 these commands can be installed in Ubuntu 22.10 using
 
 > bash# apt install llvm clang clang-tools clang-format clang-tidy clangd lld lldb
@@ -46,25 +46,21 @@ from this url https://github.com/mug896/clang-bash-completion
 
 ## Usage
 
+
+```sh
+# This script requires the external command 'fsf' to use.
+# Therefore, first install the 'fsf' command as follows.
+
+bash$ sudo apt install fsf
+```
+
 You can try to search for completion words using the glob characters 
 `*`, `?`, `[...]` while writing the command line like this:
 
 ```sh
 bash$ opt -O1 foo.bc -*debug*[tab]
-. . .
-10 --debug-entry-values
-11 --debug-info-correlate
-12 --debug-pass-manager
-13 --debug-pass-manager=
-14 --debug-pass=
-15 --debugger-tune=
-. . .                       # "q"
-[tab]                       # [tab] to exit to the prompt.
 
-# After searching, you can use the numbers in the list to input completion words.
-$ opt -O1 foo.bc 14[tab]
-
-$ opt -O1 foo.bc --debug-pass=
+bash$ opt -O1 foo.bc -*[tab]
 ```
 
 

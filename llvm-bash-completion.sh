@@ -48,23 +48,17 @@ _llvm_option_list()
         s/(\a(--?[[:alnum:]][[:alnum:]_+-]*\[?=?)[^\a]*)/\2\n/g; s/[[\a]|\n[^\n]*$//g; p }'
     fi
 }
-_llvm_bind() { bind '"\011": complete' ;}
 _llvm_search()
 {
+    local res
     words=$( _llvm_option_list | sed -E 's/^[ \t]+|[ \t]+$//g' | sort -u )
-    local res count opt
-    _llvm_number=""
-    local IFS=$'\n'; echo
     for v in $words; do
         if [[ $v == $cur ]]; then
-            res+=$'\e[36m'"$v"$'\e[0m\n'
-            let count++
-            _llvm_number+="$count $v"$'\n'
+            res+=$v$'\n'
         fi
-    done
-    (( count >= LINES )) && opt="+Gg"
-    less -FRSXiN $opt <<< ${res%$'\n'}
-    bind -x '"\011": _llvm_bind'
+    done 
+    words=$( <<< $res fzf -m )
+    COMPREPLY=( "${words//$'\n'/ }" )
 }
 _llvm() 
 {
@@ -86,7 +80,6 @@ _llvm()
 
     elif [[ $cur == -*[[*?]* ]]; then
         _llvm_search
-        return
 
     elif [[ $cur == -* ]]; then
         words=$( _llvm_option_list )
@@ -141,7 +134,6 @@ _llvm_subcommand()
 
     elif [[ $cur == -*[[*?]* ]]; then
         _llvm_search
-        return
 
     elif [[ $cur == -* ]]; then
         words=$( _llvm_option_list )
