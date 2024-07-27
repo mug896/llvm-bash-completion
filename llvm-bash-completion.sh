@@ -50,8 +50,8 @@ _llvm_option_list()
 }
 _llvm_search()
 {
-    local res IFS=$'\n'
     words=$( _llvm_option_list | sed -E 's/^[ \t]+|[ \t]+$//g' | sort -u )
+    local res IFS=$'\n'
     for v in $words; do
         if [[ $v == $cur ]]; then
             res+=$v$'\n'
