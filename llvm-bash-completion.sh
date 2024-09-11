@@ -74,11 +74,7 @@ _llvm()
 
     help=$({ $cmd --help-hidden || $cmd --help || $cmd -help ;} 2>&1 )
 
-    if [[ $cur == +([0-9]) ]]; then
-        words=$( <<< $_llvm_number awk '$1 == '"$cur"' { print $2; exit }' )
-        COMPREPLY=( "$words" )
-
-    elif [[ $cur == -*[[*?]* ]]; then
+    if [[ $cur == -*[[*?]* ]]; then
         _llvm_search
 
     elif [[ $cur == -* ]]; then
