@@ -24,7 +24,7 @@ bash$ sudo apt install fsf
 ```
 
 You can try to search for completion words using the glob characters 
-`*`, `?`, `[...]` while writing the command line like this:
+`*`, `?`, `[]` while writing the command line like this:
 
 ```sh
 bash$ opt -O1 foo.bc -*debug*[tab]
