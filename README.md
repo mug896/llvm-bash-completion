@@ -7,7 +7,7 @@ https://github.com/llvm/llvm-project/releases/tag/llvmorg-19.1.0
 
 
 Autocomplete functions for `clang` `clang++` commands can be downloaded separately
-from this url  
+from this url.  
 
 https://github.com/mug896/clang-bash-completion
 
@@ -16,10 +16,10 @@ https://github.com/mug896/clang-bash-completion
 ## Usage
 
 
-```sh
-# This script requires the external command 'fsf' to use.
-# Therefore, first install the 'fsf' command as follows.
+This script requires the external command 'fsf' to use.  
+Therefore, first install the 'fsf' command as follows.  
 
+```sh
 bash$ sudo apt install fsf
 ```
 
