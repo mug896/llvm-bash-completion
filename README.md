@@ -16,8 +16,8 @@ https://github.com/mug896/clang-bash-completion
 ## Usage
 
 
-This script requires the external command 'fsf' to use.  
-Therefore, first install the 'fsf' command as follows.  
+This script requires the external command `fsf` to use.  
+Therefore, first install the `fsf` command as follows.  
 
 ```sh
 bash$ sudo apt install fsf
