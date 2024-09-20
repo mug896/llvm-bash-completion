@@ -38,26 +38,35 @@ _llvm_footer()
 }
 _llvm_option_list()
 {
-    if [[ $cmd == llvm-c-test ]]; then
-        $cmd --help |& sed -E 's/ (--?[[:alnum:]][[:alnum:]_-]*)|./\1\n/g;'
+    if [[ $cmd == @(llvm-c-test|f18-parse-demo) ]]; then
+        <<< $help sed -E 's/ (--?[[:alnum:]][[:alnum:]_-]*)|./\1\n/g;'
+        if [[ $cmd == f18-parse-demo ]]; then
+            echo -e "-fbackslash\n-fno-backslash\n-Mbackslash\n-Mno-backslash"
+        fi
+    elif [[ $cmd == lldb-server && $cmd2 == @(p|platform) ]]; then
+        <<< $help sed -E 's/[[ ](--?[[:alnum:]][[:alnum:]_-]*)|./\1\n/g;'
     elif [[ $cmd == c-index-test ]]; then
-        $cmd --help |& sed -En '/c-index-test -/{ s/[^[:alnum:]](-[[:alnum:]-]+=?)|./\1\n/g; p }'
+        <<< $help sed -En '/c-index-test -/{ s/[^[:alnum:]](-[[:alnum:]-]+=?)|./\1\n/g; p }'
     else
         <<< $help sed -En '/^[ ]{,10}--?[[:alnum:]]/{ s/, -/\a-/g;
         tR; :R s/^[ ]{,10}(--?[[:alnum:]][[:alnum:]_+-]*\[?=?)[^\a]*/\1\n/; T;
         s/(\a(--?[[:alnum:]][[:alnum:]_+-]*\[?=?)[^\a]*)/\2\n/g; s/[[\a]|\n[^\n]*$//g; p }'
     fi
 }
+_llvm_option_list2()
+{
+    <<< $help sed -En 's#^[ ]{,10}(/[[:alnum:]?][[:alnum:]_:-]*).*#\1\n#p'
+}
 _llvm_search()
 {
-    words=$( _llvm_option_list | sed -E 's/^[ \t]+|[ \t]+$//g' | sort -u )
     local res IFS=$'\n'
+    words=$( _llvm_option_list | sed -E 's/^[ \t]+|[ \t]+$//g' | sort -u )
     for v in $words; do
         if [[ $v == $cur ]]; then
             res+=$v$'\n'
         fi
     done 
-    words=$( <<< $res fzf -m --info=inline )
+    words=$( <<< $res fzf -m --info=inline)
     COMPREPLY=( "${words//$'\n'/ }" )
 }
 _llvm() 
@@ -72,13 +81,22 @@ _llvm()
     local cmd=$1 cmd2 words comp_line2 help args arr i v
     _llvm_header
 
-    help=$({ $cmd --help-hidden || $cmd --help || $cmd -help ;} 2>&1 )
+    if [[ $cmd == @(f18-parse-demo|lldb-dap|llvm-lib|llvm-ml) ]]; then
+        help=$( $cmd -help 2>&1 )
+    elif [[ $cmd == llvm-rc ]]; then
+        help=$( $cmd /? 2>&1 )
+    else
+        help=$({ $cmd --help-hidden || $cmd --help || $cmd -help ;} 2>&1 )
+    fi
 
     if [[ $cur == -*[[*?]* ]]; then
         _llvm_search
 
     elif [[ $cur == -* ]]; then
         words=$( _llvm_option_list )
+    
+    elif [[ $cur == /* ]]; then
+        words=$( _llvm_option_list2 )
     
     elif [[ $cmd == opt && $prev == --passes ]]; then
         words=$(opt --print-passes | sed -E '/^[^ ].+:$/d')
@@ -100,40 +118,38 @@ _llvm_subcommand()
     local cmd=$1 cmd2 words comp_line2 help args arr i v
     _llvm_header
 
-    if (( COMP_CWORD == 1 )); then
+    if [[ $COMP_CWORD == 1 && $cur != -* ]]; then
         help=$( $cmd --help 2>&1 )
         case $cmd in
             llvm-cov)
                 words=$(<<< $help sed -En '/^Subcommands:/,/\a/{ //d; s/:.*$//; p }') ;;
             llvm-lto2)
                 words=$(<<< $help sed -En 's/^Available (sub)?commands: //; s/[ ,]+/\n/; p') ;;
-            llvm-pdbutil)
+            clang-refactor | llvm-pdbutil | llvm-profdata | llvm-remarkutil | llvm-xray)
                 words=$(<<< $help sed -En '/SUBCOMMANDS:/,/OPTIONS:/{ //d; s/^ *([^ ]+) *- .*$/\1/p }') ;;
-            llvm-profdata)
-                words=$(<<< $help sed -En 's/Available (sub)?commands: //; tX b; :X s/[ ,]+/\n/g; p') ;;
-            llvm-jitlink-executor)
-                words=$'filedescs=\nlisten=' ;;
             diagtool)
                 words=$(<<< $help sed -E '1d; s/^\s*([^ ]+).*/\1/') ;;
             hmaptool)
                 words=$(<<< $help sed -En '/^Available commands:/,/\a/{ s/ -.*$//p }') ;;
+            lldb-server)
+                words=$'version\ngdbserver\ng\nplatform\np' ;;
         esac
         _llvm_footer
         return
     fi
-    cmd2=${COMP_WORDS[1]}
-    help=$({ $cmd $cmd2 --help-hidden || $cmd $cmd2 --help ;} 2>&1 )
+    [[ ${COMP_WORDS[1]} != -* ]] && cmd2=${COMP_WORDS[1]}
+    if [[ $cmd == lldb-server ]]; then
+        help=$( $cmd $cmd2 --help 2>&1 )
+    else
+        help=$({ $cmd $cmd2 --help-hidden || $cmd $cmd2 --help ;} 2>&1 )
+    fi
 
-    if [[ $cur == +([0-9]) ]]; then
-        words=$( <<< $_llvm_number awk '$1 == '"$cur"' { print $2; exit }' )
-        COMPREPLY=( "$words" )
-
-    elif [[ $cur == -*[[*?]* ]]; then
+    if [[ $cur == -*[[*?]* ]]; then
         _llvm_search
 
     elif [[ $cur == -* ]]; then
         words=$( _llvm_option_list )
-    
+
     elif [[ $prev == -* || "," == @($cur_o|$prev_o) ]]; then
         [[ $prev == -* ]] && args=$prev || args=$preo
         words=$(<<< $help sed -En '/^[ ]*'"$args"'[ =]/{ 
@@ -144,27 +160,37 @@ _llvm_subcommand()
 }
 
 complete -o default -o bashdefault -F _llvm \
-    llc lli opt lldb lldb-instr bugpoint dsymutil \
-    obj2yaml yaml2obj sanstats verify-uselistorder FileCheck \
-    llvm-addr2line llvm-ar llvm-as llvm-bcanalyzer llvm-c-test llvm-cat \
-    llvm-config llvm-cxxfilt llvm-dis llvm-dlltool llvm-dwarfdump llvm-cfi-verify \
-    llvm-exegesis llvm-extract llvm-link llvm-lto llvm-mc llvm-mca \
-    llvm-modextract llvm-nm llvm-objcopy llvm-objdump llvm-opt-report \
-    llvm-ranlib llvm-readelf llvm-readobj llvm-rtdyld llvm-size llvm-split \
-    llvm-stress llvm-strings llvm-strip llvm-symbolizer llvm-tblgen \
-    llvm-undname llvm-xray ld.lld wasm-ld clang-format clang-format-diff clangd \
-    clang-cpp clang-tidy clang-tidy-diff run-clang-tidy llvm-debuginfod \
-    llvm-debuginfod-find llvm-ifs llvm-install-name-tool llvm-jitlink \
-    llvm-libtool-darwin llvm-lipo llvm-otool llvm-tli-checker llvm-windres \
-    llvm-cxxmap llvm-dwarfutil llvm-gsymutil llvm-dwp llvm-reduce llvm-diff \
-    llvm-remark-size-diff llvm-profgen llvm-sim clang-apply-replacements split-file \
-    clang-change-namespace clang-check clang-doc clang-cl clang-extdef-mapping \
-    clang-include-fixer clang-linker-wrapper clang-move clang-nvlink-wrapper \
-    clang-offload-bundler clang-offload-packager clang-offload-wrapper clang-pseudo \
-    clang-query clang-refactor clang-rename clang-reorder-fields clang-repl \
-    clang-scan-deps  analyze-build c-index-test find-all-symbols hwasan_symbolize \
-    intercept-build modularize pp-trace sancov scan-build scan-build-py scan-view
+amdgpu-arch analyze-build bbc bugpoint c-index-test clang clang++ \
+clang-apply-replacements clang-change-namespace clang-check clang-cl \
+clang-cpp clang-doc clang-extdef-mapping clang-format clang-include-cleaner \
+clang-include-fixer clang-installapi clang-linker-wrapper clang-move \
+clang-nvlink-wrapper clang-offload-bundler clang-offload-packager clang-pseudo \
+clang-query clang-refactor clang-rename clang-reorder-fields clang-repl \
+clang-scan-deps clang-tblgen clang-tidy clangd dsymutil f18-parse-demo \
+find-all-symbols fir-opt flang-new git-clang-format intercept-build \
+ld.lld ld64.lld llc lld-link lldb lldb-dap lldb-instr \
+lli llvm-addr2line llvm-ar llvm-as llvm-bcanalyzer llvm-bitcode-strip llvm-bolt \
+llvm-bolt-heatmap llvm-boltdiff llvm-c-test llvm-cat llvm-cfi-verify llvm-config \
+llvm-cvtres llvm-cxxdump llvm-cxxfilt llvm-cxxmap llvm-debuginfo-analyzer \
+llvm-debuginfod llvm-debuginfod-find llvm-diff llvm-dis llvm-dlltool llvm-dwarfdump \
+llvm-dwarfutil llvm-dwp llvm-exegesis llvm-extract llvm-gsymutil llvm-ifs \
+llvm-install-name-tool llvm-jitlink llvm-lib llvm-libtool-darwin llvm-link llvm-lipo \
+llvm-lto llvm-mc llvm-mca llvm-ml llvm-modextract llvm-mt llvm-nm \
+llvm-objcopy llvm-objdump llvm-opt-report llvm-otool \
+llvm-profgen llvm-ranlib llvm-rc llvm-readelf llvm-readobj llvm-readtapi llvm-reduce \
+llvm-rtdyld llvm-sim llvm-size llvm-split llvm-stress llvm-strings \
+llvm-strip llvm-symbolizer llvm-tblgen llvm-tli-checker llvm-undname llvm-windres \
+merge-fdata mlir-cpu-runner mlir-linalg-ods-yaml-gen \
+mlir-lsp-server mlir-minimal-opt mlir-minimal-opt-canonicalize mlir-opt mlir-pdll \
+mlir-pdll-lsp-server mlir-query mlir-reduce mlir-tblgen mlir-transform-opt \
+mlir-translate modularize nvptx-arch opt perf2bolt pp-trace reduce-chunk-list \
+run-clang-tidy sancov sanstats scan-build scan-build-py scan-view tblgen-lsp-server \
+tblgen-to-irdl tco verify-uselistorder wasm-ld
 
 complete -o default -o bashdefault -F _llvm_subcommand \
-    llvm-cov llvm-lto2 llvm-pdbutil llvm-profdata llvm-jitlink-executor \
-    diagtool hmaptool
+    clang-refactor llvm-cov llvm-lto2 llvm-pdbutil llvm-profdata diagtool hmaptool \
+    lldb-server llvm-remarkutil llvm-xray
+
+
+
+
