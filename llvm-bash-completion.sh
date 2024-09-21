@@ -81,11 +81,11 @@ _llvm()
     local cmd=${1##*/} cmd2 words comp_line2 help args arr i v
     _llvm_header
     if [[ $cmd == @(f18-parse-demo|lldb-dap|llvm-lib|llvm-ml) ]]; then
-        help=$( $cmd -help 2>&1 )
+        help=$( $1 -help 2>&1 )
     elif [[ $cmd == llvm-rc ]]; then
-        help=$( $cmd /? 2>&1 )
+        help=$( $1 /? 2>&1 )
     else
-        help=$({ $cmd --help-hidden || $cmd --help || $cmd -help ;} 2>&1 )
+        help=$({ $1 --help-hidden || $1 --help || $1 -help ;} 2>&1 )
     fi
 
     if [[ $cur == -*[[*?]* ]]; then
@@ -118,7 +118,7 @@ _llvm_subcommand()
     _llvm_header
 
     if [[ $COMP_CWORD == 1 && $cur != -* ]]; then
-        help=$( $cmd --help 2>&1 )
+        help=$( $1 --help 2>&1 )
         case $cmd in
             llvm-cov)
                 words=$(<<< $help sed -En '/^Subcommands:/,/\a/{ //d; s/:.*$//; p }') ;;
@@ -138,9 +138,9 @@ _llvm_subcommand()
     fi
     [[ ${COMP_WORDS[1]} != -* ]] && cmd2=${COMP_WORDS[1]}
     if [[ $cmd == lldb-server ]]; then
-        help=$( $cmd $cmd2 --help 2>&1 )
+        help=$( $1 $cmd2 --help 2>&1 )
     else
-        help=$({ $cmd $cmd2 --help-hidden || $cmd $cmd2 --help ;} 2>&1 )
+        help=$({ $1 $cmd2 --help-hidden || $1 $cmd2 --help ;} 2>&1 )
     fi
 
     if [[ $cur == -*[[*?]* ]]; then
