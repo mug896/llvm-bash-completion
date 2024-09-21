@@ -114,7 +114,7 @@ _llvm()
 _llvm_subcommand() 
 {
     local IFS=$' \t\n' cur cur_o prev prev_o prev2 preo
-    local cmd=$1 cmd2 words comp_line2 help args arr i v
+    local cmd=${1##*/} cmd2 words comp_line2 help args arr i v
     _llvm_header
 
     if [[ $COMP_CWORD == 1 && $cur != -* ]]; then
