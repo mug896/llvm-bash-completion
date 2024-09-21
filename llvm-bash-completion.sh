@@ -78,9 +78,8 @@ _llvm()
     [[ $COMP_WORDBREAKS != *","* ]] && COMP_WORDBREAKS+=","
 
     local IFS=$' \t\n' cur cur_o prev prev_o prev2 preo
-    local cmd=$1 cmd2 words comp_line2 help args arr i v
+    local cmd=${1##*/} cmd2 words comp_line2 help args arr i v
     _llvm_header
-
     if [[ $cmd == @(f18-parse-demo|lldb-dap|llvm-lib|llvm-ml) ]]; then
         help=$( $cmd -help 2>&1 )
     elif [[ $cmd == llvm-rc ]]; then
@@ -160,7 +159,7 @@ _llvm_subcommand()
 }
 
 complete -o default -o bashdefault -F _llvm \
-amdgpu-arch analyze-build bbc bugpoint c-index-test clang clang++ \
+amdgpu-arch analyze-build bbc bugpoint c-index-test \
 clang-apply-replacements clang-change-namespace clang-check clang-cl \
 clang-cpp clang-doc clang-extdef-mapping clang-format clang-include-cleaner \
 clang-include-fixer clang-installapi clang-linker-wrapper clang-move \
