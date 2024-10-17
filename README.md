@@ -35,7 +35,7 @@ bash$ opt -O1 foo.bc -*[tab]
 
 ## Installation
 
-Copy contents of gcc-bash-completion.sh to ~/.bash_completion  
-open new terminal and try auto completion !
+Copy the contents of the llvm-bash-completion.sh to ~/.bash_completion  
+Open new terminal and try auto completion !
 
 
