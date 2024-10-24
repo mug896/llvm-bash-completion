@@ -1,9 +1,9 @@
 # LLVM Bash Completion
 
-This is a bash autocomplete function for LLVM 19.1.0.  
+This is a bash autocomplete function for LLVM 19.1.2.
 You can download pre-compiled LLVM binary packages from the URL below.  
 
-https://github.com/llvm/llvm-project/releases/tag/llvmorg-19.1.0
+https://github.com/llvm/llvm-project/releases
 
 
 Autocomplete functions for `clang` `clang++` commands can be downloaded separately
